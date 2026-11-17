@@ -1,0 +1,27 @@
+# Python bytecode & cache
+*.py[cod]
+*$py.class
+__pycache__/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Environment variables & secrets
+.env
+*.env
+!.env.example
+
+# Databases
+*.sqlite3
+db.sqlite3
+
+# Static files & uploads
+staticfiles/
+media/
+
+# Tooling & IDEs
+.qodo/
+.vscode/
+.idea/
