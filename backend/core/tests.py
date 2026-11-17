@@ -71,7 +71,7 @@ class DashboardTests(Base):
 class PublicEndpointAllowlist(Base):
     """Fails if anyone adds an unauthenticated endpoint by accident."""
     EXPECTED_PUBLIC = {"Register", "Login", "Refresh", "HealthCheck", "AnonymousSubmit", "AnonymousAccess",
-                       "AnonymousFollowUp", "EmergencyList", "EmergencyDetail", "ResourceListCreate", "ResourceDetail"}
+                       "AnonymousFollowUp", "EmergencyList", "EmergencyDetail", "ResourceListCreate", "ResourceDetail", "ResourceFileDownload"}
     def views(self, patterns):
         for p in patterns:
             if isinstance(p, URLResolver):

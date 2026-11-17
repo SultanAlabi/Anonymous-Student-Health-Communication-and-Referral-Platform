@@ -69,6 +69,8 @@ TIME_ZONE = "Africa/Lagos"
 USE_TZ = True
 STATIC_URL = "static/"
 STATIC_ROOT = BASE_DIR / "staticfiles"
+# Uploaded resource files. Never served directly: downloads go through a permission-checking view.
+MEDIA_ROOT = Path(env("MEDIA_ROOT") or BASE_DIR / "media")
 
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": ["rest_framework_simplejwt.authentication.JWTAuthentication"],

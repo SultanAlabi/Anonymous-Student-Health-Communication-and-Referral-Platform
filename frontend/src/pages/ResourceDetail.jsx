@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { errorMessage, publicApi } from "../api/client.js";
+import { API_BASE, errorMessage, publicApi } from "../api/client.js";
 import { Alert, Badge, Spinner } from "../components/ui.jsx";
-import { RESOURCE_CATEGORIES, label } from "../constants.js";
+import { RESOURCE_CATEGORIES, fmtSize, label } from "../constants.js";
 
 export default function ResourceDetail() {
   const { id } = useParams();
@@ -27,6 +27,21 @@ export default function ResourceDetail() {
           <p className="mt-2 text-lg text-stone-600">{item.summary}</p>
           {/* Rendered as plain text on purpose: no HTML injection. */}
           <div className="mt-6 whitespace-pre-line leading-relaxed">{item.body}</div>
+          {item.files?.length > 0 && (
+            <section className="mt-8" aria-label="Downloads">
+              <h2 className="text-lg font-bold">Downloads</h2>
+              <ul className="mt-2 space-y-2">
+                {item.files.map((f) => (
+                  <li key={f.id}>
+                    {/* Plain link: published files need no login. */}
+                    <a href={`${API_BASE}/${f.path}`} target="_blank" rel="noopener noreferrer" className="flex items-center justify-between gap-3 rounded-xl border border-stone-200 bg-white px-4 py-3 text-sm hover:border-brand-500">
+                      <span className="font-semibold text-brand-700">{f.name}</span><span className="shrink-0 text-xs text-stone-500">{fmtSize(f.size)}</span>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
           <Alert tone="warn" className="mt-8">This information doesn’t replace advice from a healthcare professional. <Link className="underline" to="/anonymous">Ask a question anonymously</Link> or <Link className="underline" to="/emergency">find emergency help</Link>.</Alert>
         </>
       )}

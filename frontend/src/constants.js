@@ -16,3 +16,5 @@ export const fmt = (d) => (d ? new Date(d).toLocaleString([], { dateStyle: "medi
 export const fmtDate = (d) => (d ? new Date(d).toLocaleDateString([], { dateStyle: "medium" }) : "");
 export const EMERGENCY_CATEGORIES = [["emergency_services", "Emergency services"], ["health_centre", "University health centre"], ["hospital", "Hospital / emergency facility"], ["crisis_line", "Crisis / mental health line"], ["campus_security", "Campus security"]];
 export const STAFF_ROLES = [["ambassador", "Health ambassador"], ["professional", "Healthcare professional"], ["admin", "Administrator"]];
+
+export const fmtSize = (n) => (n < 1024 * 1024 ? `${Math.max(1, Math.round(n / 1024))} KB` : `${(n / 1024 / 1024).toFixed(1)} MB`);

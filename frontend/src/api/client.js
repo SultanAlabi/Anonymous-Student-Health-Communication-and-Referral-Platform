@@ -1,6 +1,7 @@
 import axios from "axios";
 
 const baseURL = import.meta.env.VITE_API_URL || "/api/v1";
+export const API_BASE = baseURL;
 
 // publicApi never sends credentials: used for anonymous and public pages.
 export const publicApi = axios.create({ baseURL });
@@ -60,4 +61,14 @@ export function fieldErrors(err) {
   const d = err?.response?.data;
   if (!d || typeof d !== "object" || d.detail) return {};
   return Object.fromEntries(Object.entries(d).map(([k, v]) => [k, [].concat(v).join(" ")]));
+}
+
+
+// Authenticated download (drafts are private, so a plain link can't carry the login token).
+export async function saveBlob(path, name) {
+  const r = await api.get(`/${path}`, { responseType: "blob" });
+  const url = URL.createObjectURL(r.data);
+  const a = Object.assign(document.createElement("a"), { href: url, download: name });
+  a.click();
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
 }
